@@ -11,6 +11,11 @@ pipeline {
   }
   stages {
     stage('Build') {
+      agent {
+        docker {
+          args '-u 0:0'
+        }
+      }
       steps {
         sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
       }
