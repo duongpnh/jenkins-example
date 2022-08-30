@@ -1,5 +1,9 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      args '-u 0:0'
+    }
+  }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -11,11 +15,6 @@ pipeline {
   }
   stages {
     stage('Build') {
-      agent {
-        docker {
-          args '-u 0:0'
-        }
-      }
       steps {
         sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
       }
