@@ -11,6 +11,12 @@ pipeline {
   }
   stages {
     stage('Build') {
+      agent {
+        docker {
+          image 'node:16.16.0-buster'
+          agrs '-u 0:0'
+        }
+      }
       steps {
         sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
       }
